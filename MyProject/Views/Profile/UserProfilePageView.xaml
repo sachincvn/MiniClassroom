@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.UserProfilePageView"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="viewModel:UserProfileViewModel"
+             Shell.NavBarIsVisible="False"
+             Title="user_profile">
+    
+    <Grid RowDefinitions="*,Auto">
+            <Grid Grid.Row="0" RowSpacing="2" RowDefinitions="Auto,Auto,Auto,*,Auto">
+                <Image Grid.Row="0" Aspect="AspectFill" HeightRequest="350" Source="login_bg_top.png" />
+
+                <Frame Margin="0,-220,0,0" Grid.Row="1" HorizontalOptions="Center" Style="{StaticResource CustomEntryFrame}" HeightRequest="120" WidthRequest="120" CornerRadius="60">
+                    <Image Source="ic_profile.png" Aspect="AspectFill" HeightRequest="120" WidthRequest="120"/>
+                </Frame>
+            <Label Grid.Row="2" Margin="0,-40,0,0"  HorizontalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}" Text="{Binding FullName}"/>
+
+
+            <Grid Margin="25" Grid.Row="3" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+                      ColumnSpacing="10" RowSpacing="5" ColumnDefinitions="Auto,Auto,*">
+                    <!--First Name-->
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="First Name"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text=":"/>
+                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.first_name}"/>
+                    <!--Last Name-->
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="Last Name"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.last_name}"/>
+                    <!--USN Id-->
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="USN"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.usn}"/>
+                    <!--Semester-->
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="Semester"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.semester}"/>
+                    <!--Section-->
+                    <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="Section"/>
+                    <Label Grid.Row="4" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="4" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.section}"/>
+                    <!--DOB-->
+                    <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="DOB"/>
+                    <Label Grid.Row="5" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="5" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.dob}"/>
+                    <!--Email-->
+                    <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="Email Address"/>
+                    <Label Grid.Row="6" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="6" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.email_address}"/>
+                    <!--Mobile-->
+                    <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="Mobile Number"/>
+                    <Label Grid.Row="7" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="7" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.mobile_number}"/>
+                    <!--Address-->
+                    <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource Text.Appeareance.16.SemiBold}" Text="Address"/>
+                    <Label Grid.Row="8" Grid.Column="1" Text=":"/>
+                <Label Grid.Row="8" Grid.Column="2" Style="{StaticResource Text.Appeareance.16.Medium}" Text="{Binding UserData.user.address}"/>
+
+
+                </Grid>
+
+            </Grid>
+        <Grid Grid.Row="4" RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+            <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Aspect="AspectFill" HeightRequest="170" VerticalOptions="EndAndExpand" Source="login_bg_bottom.png" />
+
+            <Label VerticalOptions="End" Margin="20,10,20,10" TextColor="White" FontSize="14" Grid.Row="1" Grid.Column="0">
+            </Label>
+            <Button Command='{Binding UserLogoutCommand}' Grid.Row="1" Grid.Column="1" VerticalOptions="End" Style="{StaticResource LoginButton}" Text="Logout"/>
+        </Grid>
+    </Grid>
+</ContentPage>

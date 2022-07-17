@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.AssignmentDetailView"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="viewModel:AssignmentDetailViewModel"
+             Shell.NavBarIsVisible="False"
+             Title="AssignmentDetailView">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,Auto,Auto,*,Auto,Auto,Auto" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <Image Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Assignment" TextColor="White" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+            </Grid>
+
+            <BoxView Grid.Row="1" Grid.RowSpan="6" Color="White" CornerRadius="20" Margin="10,10,10,20"/>
+            <ActivityIndicator HorizontalOptions="Center"  VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="6" Color="#2F80ED" IsRunning="{Binding IsDataLoading}" />
+            <Label Grid.Row="2" Margin="25,10,25,0" TextColor="#2F80ED" FontSize="30" Text="{Binding AssignmentModel.SubjectName}" Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+            <StackLayout Spacing="5" Margin="25,0,25,10" Grid.Row="3">
+                <Label TextColor="#2F80ED" Style="{StaticResource Text.Appeareance.16.SemiBold}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Assignment Question" />
+                            <Span Text=""/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Margin="0,10" Text="{Binding AssignmentModel.AssignmentQuestion}"
+                       Style="{StaticResource Text.Appeareance.14.Medium}"/>
+
+            </StackLayout>
+            <StackLayout Margin="25,5,25,20" Grid.Row="4">
+                <BoxView Margin="0,10" Grid.Row="2" Grid.ColumnSpan="3" Color="#e3efff" HeightRequest="1" />
+                <Grid  RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="5" ColumnDefinitions="Auto,Auto,*">
+                    <!-- Posted On -->
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Text.Appeareance.14.Bold}" Text="Assigned On"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text=":"/>
+                    <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource Text.Appeareance.14.Medium}" Text="{Binding AssignmentModel.AssignedOn}"/>
+
+                    <!-- Due Date -->
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource Text.Appeareance.14.Bold}" Text="Due Date"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text=":"/>
+                    <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource Text.Appeareance.14.Medium}" Text="{Binding AssignmentModel.DueDate}"/>
+
+                    <BoxView Margin="0,10" Grid.Row="2" Grid.ColumnSpan="3" Color="#e3efff" HeightRequest="1" />
+
+                    <!-- Assignment Marks -->
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource Text.Appeareance.14.Bold}" Text="Status "/>
+                    <Label Grid.Row="3" Grid.Column="1" Text=":"/>
+                    <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource Text.Appeareance.14.Medium}" Text="{Binding AssignmentModel.AssignmentStatus}"/>
+
+                    <!-- Assignment Marks -->
+                    <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource Text.Appeareance.14.Bold}" Text="Marks "/>
+                    <Label Grid.Row="4" Grid.Column="1" Text=":"/>
+                    <Label Grid.Row="4" Grid.Column="2" Style="{StaticResource Text.Appeareance.14.Medium}" Text="{Binding AssignmentModel.AssignmentMarks}"/>
+                </Grid>
+                <BoxView Margin="0,10" Grid.Row="2" Grid.ColumnSpan="3" Color="#e3efff" HeightRequest="1" />
+
+            </StackLayout>
+
+            <Frame Margin="25,5,25,0" Grid.Row="5" Style="{StaticResource CustomEntryFrame}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UploadFileCommand}"/>
+                </Frame.GestureRecognizers>
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="ic_attachment.png"/>
+                    <Label Text="{Binding FileName}" TextColor="#2F80ED" Style="{StaticResource Text.Appeareance.14.Medium}"/>
+                </HorizontalStackLayout>
+            </Frame>
+            <Frame Margin="25,0,25,30" Grid.Row="6" Style="{StaticResource CustomEntryFrame}">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding UploadAssignmentCommand}"/>
+                </Frame.GestureRecognizers>
+                <Label Text="Submit" TextColor="#2F80ED" Style="{StaticResource Text.Appeareance.14.Bold}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

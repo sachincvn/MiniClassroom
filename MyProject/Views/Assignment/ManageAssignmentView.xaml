@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.ManageAssignmentView"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="viewModel:ManageAssignmentViewModel"
+             Title="ManageAssignmentView">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <Image Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Assignment" TextColor="White" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+            </Grid>
+            <BoxView Grid.Row="1" Grid.RowSpan="3" Color="White" CornerRadius="20" Margin="10,10,10,20"/>
+            <ActivityIndicator HorizontalOptions="Center"  VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Color="#2F80ED" IsRunning="{Binding IsDataLoading}" />
+            <Label Grid.Row="2" Margin="25,10,25,0" TextColor="#2F80ED" FontSize="30" Text="Manage Assignment" Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+            <RefreshView IsRefreshing="{Binding IsDataLoading}" Command="{Binding RefreshCommand}" Margin="0,5,0,25" Grid.Row="3">
+                <CollectionView ItemsSource="{Binding AssignmentCollection}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                <Image Source="ic_empty_file.pmg" WidthRequest="120" HeightRequest="120"/>
+                                <Label TextColor="#2F80ED" Style="{StaticResource Text.Appeareance.20.SemiBold}" Text="No Assignment Available !"/>
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:AssignmentDetailModel">
+                            <Frame Margin="20,5" HeightRequest="150" Padding="10" Style="{StaticResource FrameCardview}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ManageAssignmentViewModel}}, Path=AssignmentDetailCommand}" CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <StackLayout>
+                                    <Grid RowDefinitions="*,Auto" ColumnSpacing="10" RowSpacing="5" ColumnDefinitions="Auto,*,Auto">
+                                        <Image Grid.RowSpan="2" Source="{Binding SubjectImage}" Margin="5" WidthRequest="40" HeightRequest="40"/>
+                                        <Label Grid.Column="1" Text="{Binding SubjectName}" Style="{StaticResource Text.Appeareance.16.SemiBold}"/>
+                                        <Label Grid.Column="2" Text="{Binding AssignmentStatus}" Style="{StaticResource Text.Appeareance.14.Medium}"/>
+                                        <Label Grid.Row="1" Grid.Column="1"  Text="{Binding AssignedOn}" Style="{StaticResource Text.Appeareance.12.Medium}"/>
+                                    </Grid>
+
+                                    <Label MaxLines="4" Style="{StaticResource Text.Appeareance.14.Light}" Text="{Binding AssignmentQuestion}"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

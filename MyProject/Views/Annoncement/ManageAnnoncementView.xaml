@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.ManageAnnoncementView"
+             xmlns:view="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="view:ManageAnnoncementViewModel"
+             Shell.NavBarIsVisible="False"
+             Title="ManageAnnoncement">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,Auto,Auto,*" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <Image Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Annoncement" TextColor="White" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+            </Grid>
+
+            <BoxView Grid.Row="1" Grid.RowSpan="3" Color="White" CornerRadius="20" Margin="10,10,10,20"/>
+            <ActivityIndicator HorizontalOptions="Center"  VerticalOptions="Center" Grid.Row="1" Grid.RowSpan="3" Color="#2F80ED" IsRunning="{Binding IsDataLoading}" />
+            <Label Grid.Row="2" Margin="25,10,25,0" TextColor="#2F80ED" FontSize="30" Text="{Binding Title} " Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+            <RefreshView IsRefreshing="{Binding IsDataLoading}" Command="{Binding RefreshCommand}" Margin="0,5,0,25" Grid.Row="3">
+            <CollectionView  ItemsSource="{Binding AnnoncementCollection}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Announcement">
+                                <Frame Margin="20,5" HeightRequest="140" Padding="10,5" Style="{StaticResource FrameCardview}" x:Name="Container">
+                                    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
+                                        <Label Margin="5" Text="{Binding Title}"  Style="{StaticResource Text.Appeareance.16.SemiBold}"/>
+                                        <BoxView Color="#e3efff" Grid.Row="1" HeightRequest="1" />
+
+                                        <Label Grid.Row="2" MaxLines="4" Text="{Binding Description}" Margin="5" Style="{StaticResource Text.Appeareance.14.Medium}" />
+                                        <BoxView Color="#e3efff" Grid.Row="3" HeightRequest="1" />
+
+                                        <Grid Margin="5" Grid.Row="4" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="5">
+                                            <Label Grid.Column="0" Text="{Binding Category}" Style="{StaticResource Text.Appeareance.12.Medium}"/>
+                                            <Image Grid.Column="1" Source="ic_calendar.png"/>
+                                            <Label Grid.Column="2" Text="{Binding DateTime}" HorizontalOptions="End" Style="{StaticResource Text.Appeareance.12.Regular}"/>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+            </RefreshView>
+        </Grid>
+    </ContentPage.Content>
+    
+</ContentPage>

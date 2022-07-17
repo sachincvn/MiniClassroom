@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.AddAnnoncementView"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="viewModel:AddAnnoncementViewModel"
+             Title="AddAnnoncementView">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <Image Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Annoncement" TextColor="White" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+            </Grid>
+
+            <BoxView  Grid.Row="1" Grid.RowSpan="2" Color="White" CornerRadius="20" Margin="10"/>
+
+            <Grid Grid.Row="1" RowDefinitions="Auto,*">
+                <Label Margin="25,20,10,5" TextColor="#2F80ED" FontSize="30" Text="Add Annoncement" Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+
+                <Grid RowDefinitions="Auto,*" Grid.Row="1" Margin="2,0,2,25">
+                    <StackLayout Grid.Row="0">
+                        <!-- Annoncement Title-->
+                        <Label Style="{StaticResource FormLabel}" Text="Annoncement Title"/>
+                        <Frame Style="{StaticResource CustomEntryFrame}">
+                            <Entry Text="{Binding AnnoncementTitle}" Style="{StaticResource CustomEntry}"  Placeholder="Enter Annoncement Title"/>
+                        </Frame>
+
+                        <!-- Annoncement Description -->
+                        <Label Style="{StaticResource FormLabel}" Text="Annoncement Description"/>
+                        <Frame HeightRequest="120" Style="{StaticResource CustomEntryFrame}">
+                            <Editor HeightRequest="120" WidthRequest="300" HorizontalOptions="Start" Text="{Binding  AnnoncementDescription}" Style="{StaticResource CustomEntry}" Placeholder="Annoncement Description"/>
+                        </Frame>
+
+                        <!-- Annoncement Category -->
+                        <Label Style="{StaticResource FormLabel}" Text="Annoncement Category"/>
+                        <Frame Style="{StaticResource CustomEntryFrame}">
+                            <Picker Title="Select Anouncement Category" ItemsSource="{Binding AnnoncementCategory}" SelectedItem="{Binding SelectedCategory}"  Style="{StaticResource CustomEntry}"/>
+                        </Frame>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Spacing="10"  VerticalOptions="End">
+                        <Frame Margin="15,0,15,20" Style="{StaticResource CustomEntryFrame}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddAnnouncementCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Label Text="Add Annoncement" TextColor="#2F80ED" Style="{StaticResource Text.Appeareance.14.Bold}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        </Frame>
+                    </StackLayout>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+
+
+</ContentPage>

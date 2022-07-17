@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.AdminDashboardView"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             Title="AdminDashboardView">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <ImageButton Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Admin" TextColor="White" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+            </Grid>
+
+            <BoxView  Grid.Row="1" Grid.RowSpan="2" Color="White" CornerRadius="20" Margin="10"/>
+            <ScrollView  Grid.Row="1"  Margin="0,0,0,25" HorizontalScrollBarVisibility="Never">
+
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*">
+
+                    <VerticalStackLayout>
+                        <Label Margin="25,20,25,5" TextColor="#2F80ED" FontSize="30" Text="{Binding DayGreeting}" Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+                        <Label Margin="25,0,25,15" TextColor="#2F80ED" Text="{Binding CurrentDateTime}" Style="{StaticResource Text.Appeareance.14.Medium}"/>
+                    </VerticalStackLayout>
+
+                    <HorizontalStackLayout Grid.Row="1">
+                        <Label Margin="25,5" Text="Annoncements" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                        <Image Source="ic_announcement.png" HeightRequest="20" WidthRequest="20" Margin="-20,5"/>
+                    </HorizontalStackLayout>
+
+                    <CarouselView Grid.Row="2" IsScrollAnimated="True" Loop="True"  ItemsSource="{Binding AnnoncementCollection}" Margin="10,0" IndicatorView="AnnouncementIndicator">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Announcement">
+                                <Frame Margin="10" Style="{StaticResource FrameCardview}" HeightRequest="150" x:Name="Container">
+                                    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
+                                        <Label Margin="5" Text="{Binding Title}"  Style="{StaticResource Text.Appeareance.16.SemiBold}"/>
+                                        <BoxView Color="#e3efff" Grid.Row="1" HeightRequest="1" />
+
+                                        <Label Grid.Row="2" MaxLines="4" Text="{Binding Description}" Margin="5" Style="{StaticResource Text.Appeareance.14.Medium}" />
+                                        <BoxView Color="#e3efff" Grid.Row="3" HeightRequest="1" />
+
+                                        <Grid Margin="5" Grid.Row="4" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="5">
+                                            <Label Grid.Column="0" Text="{Binding Category}" Style="{StaticResource Text.Appeareance.12.Medium}"/>
+                                            <Image Grid.Column="1" Source="ic_calendar.png"/>
+                                            <Label Grid.Column="2" Text="{Binding DateTime}" HorizontalOptions="End" Style="{StaticResource Text.Appeareance.12.Regular}"/>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <IndicatorView Grid.Row="4" x:Name="AnnouncementIndicator"  IndicatorColor="#c7dfff" SelectedIndicatorColor="#2F80ED" HorizontalOptions="Center"/>
+
+                    <!--<Frame Margin="20" Grid.Row="5" Grid.Column="0" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="5" RowSpacing="2">
+                            <Image WidthRequest="60" HeightRequest="60" Margin="10" Source="ic_profile.png" Grid.RowSpan="3"/>
+                            <Label  Margin="0,5,0,0" Grid.Column="1" Grid.Row="0" Style="{StaticResource Text.Appeareance.14.Medium}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding UserModel.email_address}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Grid.Column="1" Grid.Row="1" >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text="Admin : TRUE"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="{Binding UserModel.dob}" Grid.Column="1" Grid.Row="2" Style="{StaticResource Text.Appeareance.14.Medium}"/>
+                            <Label Margin="10,5" Text="Welcome To Admin Dashboard! " Grid.ColumnSpan="2" Grid.Row="3" Style="{StaticResource Text.Appeareance.14.Medium}"/>
+                        </Grid>
+                    </Frame>-->
+                    
+                    
+                    <Grid  Margin="25,5" ColumnSpacing="15" RowSpacing="10" Grid.Row="5" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*">
+                        <Frame Grid.Row="0" Grid.Column="0" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TimeTableListCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="*,Auto">
+                                <Image HeightRequest="40" WidthRequest="40" Source="ic_time_table.png" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <StackLayout Spacing="5" VerticalOptions="End" Grid.Row="1">
+                                    <BoxView Color="#e3efff" HeightRequest="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="Add Time Table" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="0" Grid.Column="1" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddAssignmentCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="*,Auto">
+                                <Image HeightRequest="40" WidthRequest="40" Source="ic_assignments.png" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <StackLayout Spacing="5" VerticalOptions="End" Grid.Row="1">
+                                    <BoxView Color="#e3efff" HeightRequest="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="Add Assignments" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="1" Grid.Column="0" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddAnnoncementCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="*,Auto">
+                                <Image HeightRequest="40" WidthRequest="40" Source="ic_events.png" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <StackLayout Spacing="5" VerticalOptions="End" Grid.Row="1">
+                                    <BoxView Color="#e3efff" HeightRequest="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="Add Annoncement" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="1" Grid.Column="1" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HomePageViewModel}}, Path=NotesCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="*,Auto">
+                                <Image HeightRequest="40" WidthRequest="40" Source="ic_book.png" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <StackLayout Spacing="5" VerticalOptions="End" Grid.Row="1">
+                                    <BoxView Color="#e3efff" HeightRequest="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="Notes" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+
+
+                        <Frame Grid.Row="2" Grid.Column="0" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CheckAssignmentsCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="*,Auto">
+                                <Image HeightRequest="40" WidthRequest="40" Source="ic_assignments.png" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <StackLayout Spacing="5" VerticalOptions="End" Grid.Row="1">
+                                    <BoxView Color="#e3efff" HeightRequest="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="Check Assignment" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                        
+                        <Frame Grid.Row="2" Grid.Column="1" Style="{StaticResource FrameCardview}" HeightRequest="120">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HomePageViewModel}}, Path=NotesCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid RowDefinitions="*,Auto">
+                                <Image HeightRequest="40" WidthRequest="40" Source="ic_users.png" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <StackLayout Spacing="5" VerticalOptions="End" Grid.Row="1">
+                                    <BoxView Color="#e3efff" HeightRequest="1"/>
+                                    <Label HorizontalTextAlignment="Center" Text="Manage Users" Style="{StaticResource Text.Appeareance.16.Bold}"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+
+                </Grid>
+
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

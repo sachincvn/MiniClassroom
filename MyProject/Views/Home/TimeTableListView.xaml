@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.TimeTableListView"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="viewModel:TimeTableListViewModel"
+             Title="TimeTableListView">
+
+
+    <ContentPage.Content>
+
+        <Grid RowDefinitions="Auto,*" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <Image Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Time Table" TextColor="White" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+                <ImageButton Command="{Binding AddTimeTableClassCommand}" Source="ic_add.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="End" Margin="0,0,20,0" Grid.Column="2"/>
+            </Grid>
+
+            <BoxView  Grid.Row="1" Grid.RowSpan="2" Color="White" CornerRadius="20" Margin="10"/>
+
+            <ActivityIndicator HorizontalOptions="Center"  VerticalOptions="Center" Grid.Row="1" Color="#2F80ED" IsRunning="{Binding IsDataLoading}" />
+
+            <Grid Grid.Row="1" RowDefinitions="Auto,*">
+                <Label Margin="25,20,5,5" TextColor="#2F80ED" FontSize="30" Text="TimeTable List" Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+
+
+                <RefreshView IsRefreshing="{Binding IsDataLoading}" Command="{Binding RefreshCommand}"  Margin="15,0,15,25"  Grid.Row="1">
+                    <CollectionView ItemsSource="{Binding TimeTableList}" Grid.Row="1" Margin="0,0,0,30"  HorizontalScrollBarVisibility="Never">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout  Orientation="Vertical" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:TimeTables">
+                                <Frame Padding="10" Style="{StaticResource FrameCardview}" Margin="10,5" Grid.Row="1">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:TimeTableListViewModel}}, Path=AddTimeTableCommand}" CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Style="{StaticResource Text.Appeareance.22.Bold}" Text="{Binding Semester}"/>
+                                                <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text=" th Semester " />
+                                                <Span Style="{StaticResource Text.Appeareance.20.Bold}" Text="{Binding Section} "/>
+                                                <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text=" Section"/>
+                                                <Span Style="{StaticResource Text.Appeareance.18.Medium}" Text=" Time Tabel"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </RefreshView>
+            </Grid>
+        </Grid>
+
+
+    </ContentPage.Content>
+
+
+</ContentPage>

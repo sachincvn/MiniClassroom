@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MyProject.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyProject"
+    xmlns:view="clr-namespace:MyProject.Views"
+    Shell.TabBarTitleColor="#2F80ED"
+    Shell.TabBarForegroundColor="#2F80ED"
+    Shell.FlyoutBehavior="Flyout">
+
+
+    <ShellContent
+        FlyoutItemIsVisible="False"
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="HomePageView" Title="Home">
+        <Tab Icon="ic_home.png" Title="Home">
+                <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate  view:HomePageView}" />
+            </Tab>
+            <Tab Icon="ic_assignment.png" Title="Assignment">
+                <ShellContent
+                Title="Assignments"
+                ContentTemplate="{DataTemplate view:ManageAssignmentView}"
+                Route="ManageAssignment" />
+            </Tab>
+            <Tab Icon="ic_announcement.png" Title="Annoncement">
+                <ShellContent
+                Title="Anouncement"
+                ContentTemplate="{DataTemplate view:ManageAnnoncementView}"
+                Route="ManageAnnoncement" />
+            </Tab>
+        <Tab Icon="ic_profile.png" Title="Profile">
+            <ShellContent
+                Title="Profile"
+                ContentTemplate="{DataTemplate view:UserProfilePageView}"
+                Route="UserProfilePage" />
+        </Tab>
+    </FlyoutItem>
+
+    <!--<FlyoutItem Route="HomePageView" >
+        <ShellContent Icon="ic_home.png" Title="Home"
+                ContentTemplate="{DataTemplate  view:HomePageView}" />
+        <ShellContent
+             Icon="ic_assignment.png" Title="Assignment"
+                ContentTemplate="{DataTemplate view:ManageAssignmentView}"
+                Route="ManageAssignment" />
+        <ShellContent
+            Icon="ic_announcement.png" Title="Annoncement"
+                ContentTemplate="{DataTemplate view:ManageAnnoncementView}"
+                Route="ManageAnnoncement" />
+        <ShellContent
+            Icon="ic_profile.png" Title="Profile"
+                ContentTemplate="{DataTemplate view:UserProfilePageView}"
+                Route="UserProfilePage" />
+    </FlyoutItem>-->
+
+</Shell>

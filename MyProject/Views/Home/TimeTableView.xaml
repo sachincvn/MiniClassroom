@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.TimeTableView"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             xmlns:model="clr-namespace:MyProject.Models"
+             x:DataType="viewModel:TimeTableViewModel"
+             Title="TimeTableView">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="10" Style="{StaticResource GridBaseBackground}">
+            <Grid RowDefinitions="60" ColumnDefinitions="*,Auto,*">
+                <Image Source="ic_menu.png" WidthRequest="40" HorizontalOptions="Start" Margin="20,0,0,0"/>
+                <Label Text="Time Table" TextColor="White" Grid.Column="1" VerticalOptions="Center" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+                <ImageButton Command="{Binding AddTimeTableCommand}" Source="ic_add.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="End" Margin="0,0,20,0" Grid.Column="2"/>
+            </Grid>
+
+            <BoxView  Grid.Row="1" Grid.RowSpan="2" Color="White" CornerRadius="20" Margin="10"/>
+
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,*">
+                    <Label Margin="25,20,5,5" TextColor="#2F80ED" FontSize="30" Text="Time Table" Style="{x:DynamicResource Text.Appeareance.24.Bold}" />
+                <Label Grid.Row="1" Margin="25,0,25,5" TextColor="#2F80ED">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text="{Binding UserData.Semester}"/>
+                            <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text="th SEM, "/>
+                            <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text="{Binding UserData.Section}"/>
+                            <Span Style="{StaticResource Text.Appeareance.14.Medium}" Text=" SEC"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                    <CollectionView ItemsSource="{Binding WeekDaysCollection}" Grid.Row="2"  Margin="25,5" HorizontalScrollBarVisibility="Never">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:TimeTableDay">
+                                <Grid RowDefinitions="Auto,*" RowSpacing="5">
+                                    <Label Text="{Binding WeekDay}" Style="{StaticResource Text.Appeareance.16.Bold}">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:TimeTableViewModel}}, Path=ChangeTimeTableDayCommand}" CommandParameter="{Binding .}"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <BoxView Grid.Row="1" Color="#2F80ED" CornerRadius="1" VerticalOptions="End" IsVisible="{Binding IsSelected}" HeightRequest="2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                <ActivityIndicator HorizontalOptions="Center"  VerticalOptions="Center" Grid.Row="3" Color="#2F80ED" IsRunning="{Binding IsDataLoading}" />
+
+                <CollectionView ItemsSource="{Binding TimeTableCollection}" Margin="15,0,15,25" Grid.Row="3"  HorizontalScrollBarVisibility="Never">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:TimeTable">
+                            <Frame Padding="10" Style="{StaticResource FrameCardview}" Margin="10,5" Grid.Row="3">
+                                <StackLayout Spacing="5">
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Image Source="ic_clock.png" HeightRequest="18" WidthRequest="18"/>
+                                        <Label Text="{Binding StartTime}" Style="{StaticResource Text.Appeareance.14.SemiBold}"/>
+                                        <Label Text="-" Style="{StaticResource Text.Appeareance.14.Regular}"/>
+                                        <Label Text="{Binding EndTime}" Style="{StaticResource Text.Appeareance.14.SemiBold}"/>
+                                    </HorizontalStackLayout>
+
+                                    <Label Text="{Binding SubjectName}" Style="{StaticResource Text.Appeareance.24.Bold}"/>
+
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Style="{StaticResource Text.Appeareance.14.Regular}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="By - "/>
+                                                    <Span Text="{Binding TeacherName}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <ImageButton IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModel:TimeTableViewModel}}, Path=IsAdmin}" Grid.Column="1" HorizontalOptions="End" WidthRequest="20" HeightRequest="20" Source="ic_edit.png"/>
+                                    </Grid>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyProject.Views.RegisterPageView"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewModel="clr-namespace:MyProject.ViewModels"
+             x:DataType="viewModel:RegisterViewModel"
+             Title="RegisterPageView">
+
+    <Grid RowDefinitions="*,Auto">
+        <ScrollView Grid.Row="0">
+            
+            <Grid RowSpacing="2" RowDefinitions="Auto,Auto,*,Auto">
+
+                <Image Grid.Row="0" Aspect="AspectFill" HeightRequest="250" Source="login_bg_top.png" />
+
+                <Label Grid.Row="1" Margin="20,-70,0,0" FontSize="26" FontFamily="Nunito-Medium" TextColor="#2F80ED" Text="Register"/>
+                
+                <StackLayout Margin="0,-10,0,0"  Grid.Row="2">
+
+                    <!--First Name-->
+                    <Label Style="{StaticResource FormLabel}" Text="First Name"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding FirstName}" Placeholder="Enter Your First name"/>
+                    </Frame>
+                    
+                    <!--Last Name-->
+                    <Label Style="{StaticResource FormLabel}" Text="Last Name"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding LastName}"  Placeholder="Enter Your Last name"/>
+                    </Frame>
+                    
+                    <!--Usn-->
+                    <Label Style="{StaticResource FormLabel}" Text="Last Name"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding Usn}"  Placeholder="Enter Your USN"/>
+                    </Frame>
+
+                    <!--Course-->
+                    <Label Style="{StaticResource FormLabel}" Text="Course"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding Course}" Placeholder="Enter Your Course"/>
+                    </Frame>
+                    
+                    <!--Email -->
+                    <Label Style="{StaticResource FormLabel}" Text="Email"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding EmailAddress}" Keyboard="Email" Placeholder="Enter Your Email"/>
+                    </Frame>
+
+                    <!--Password -->
+                    <Label Style="{StaticResource FormLabel}" Text="Password"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding Password}" IsPassword="True" Placeholder="Enter Password"/>
+                    </Frame>
+
+                    <!--Sem & sec-->
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*">
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource FormLabel}" Text="Semester"/>
+                        <Frame Grid.Row="1" Grid.Column="0" Style="{StaticResource CustomEntryFrame}">
+                            <Entry Style="{StaticResource CustomEntry}" Text="{Binding Semester}" Keyboard="Numeric"  Placeholder="Enter Your Semester"/>
+                        </Frame>
+
+                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource FormLabel}" Text="Section"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Style="{StaticResource CustomEntryFrame}">
+                            <Picker SelectedItem="{Binding Section}" Style="{StaticResource CustomEntry}" TitleColor="#2F80ED" TextColor="#2F80ED" Title="Section">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:Char}">
+                                        <x:Char>A</x:Char>
+                                        <x:Char>B</x:Char>
+                                        <x:Char>C</x:Char>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </Frame>
+                        
+                    </Grid>
+
+                    <!--DOB & Gender-->
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*">
+
+                        <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource FormLabel}" Text="DOB"/>
+                        <Frame Grid.Row="1" Grid.Column="0" Style="{StaticResource CustomEntryFrame}">
+                            <DatePicker Date="{Binding Dob}" Style="{StaticResource CustomEntry}"/>
+                        </Frame>
+
+                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource FormLabel}" Text="Gender"/>
+                        <Frame Grid.Row="1" Grid.Column="1" Style="{StaticResource CustomEntryFrame}">
+                            <Picker SelectedItem="{Binding Gender}" Style="{StaticResource CustomEntry}" TitleColor="#2F80ED" TextColor="#2F80ED" Title="Gender">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>Male</x:String>
+                                        <x:String>Female</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </Frame>
+                    </Grid>
+
+                    <!--Mobile Number -->
+                    <Label Style="{StaticResource FormLabel}" Text="Mobile Number"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding MobileNumber}" Keyboard="Numeric" Placeholder="Enter Your Mobile Number"/>
+                    </Frame>
+
+                    <!--parent Number -->
+                    <Label Style="{StaticResource FormLabel}" Text="Parent Number"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding ParentMobile}" Keyboard="Numeric" Placeholder="Enter Your Parent Number"/>
+                    </Frame>
+
+                    <!--Address-->
+                    <Label Style="{StaticResource FormLabel}" Text="Address"/>
+                    <Frame Style="{StaticResource CustomEntryFrame}">
+                        <Entry Style="{StaticResource CustomEntry}" Text="{Binding Address}"  Placeholder="Enter Your Address"/>
+                    </Frame>
+
+
+                    <!--<HorizontalStackLayout Margin="20" Spacing="2">
+                        <Image Source="ic_google_logo.png"/>
+                        <Image Source="ic_fb_logo.png"/>
+                        <Image Source="ic_apple_logo.png"/>
+                    </HorizontalStackLayout>-->
+
+                </StackLayout>
+
+                <Grid Grid.Row="3" RowDefinitions="*,*" ColumnDefinitions="*,Auto">
+                    <Image Grid.RowSpan="2" Grid.ColumnSpan="2" Aspect="AspectFill" HeightRequest="170" VerticalOptions="EndAndExpand" Source="login_bg_bottom.png" />
+
+                    <Label VerticalOptions="End" Margin="20,10,20,10" TextColor="White" FontSize="14" Grid.Row="1" Grid.Column="0">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExistingUserCommand}"/>
+                        </Label.GestureRecognizers>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="Nunito-Medium" Text="Already Registerd? "/>
+                                <Span FontFamily="Nunito-Bold" Text=" Login"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button Command="{Binding RegisterUserCommand}" Grid.Row="1" Grid.Column="1" VerticalOptions="End" Style="{StaticResource LoginButton}" Text="REGISTER"/>
+                </Grid>
+
+            </Grid>
+        </ScrollView>
+        <ActivityIndicator WidthRequest="80" HeightRequest="80" IsRunning="{Binding IsLoading}" HorizontalOptions="Center"  VerticalOptions="Center" Grid.Row="0"  Color="#2F80ED" />
+        <StackLayout HeightRequest="15" BackgroundColor="#2F80ED" Grid.Row="1"/>
+    </Grid>
+</ContentPage>
